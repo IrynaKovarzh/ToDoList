@@ -7,6 +7,7 @@ public class Event {
 	private int id;
 	private String title;
 	private LocalDate deadLineDate;
+	//private String description;
 	
 	public Event(String title, LocalDate deadLineDate) {
 	    this.id = nextIdNum;
@@ -17,9 +18,8 @@ public class Event {
 	}
 
 	public Event(String title) {
-		this(title, LocalDate.now().plusDays(1)); //plans for tomorrow		
+		this(title, LocalDate.now().plusDays(1)); 
 	}
-
 
 	public int getId() {
 		return id;
@@ -46,12 +46,12 @@ public class Event {
 	}
 	*/
 
-	public LocalDate getdeadLineDate() {
+	public LocalDate getDeadLineDate() {
 		return deadLineDate;
 	}
 
 	/*
-	private void setdeadLineDate(LocalDate deadline) {
+	private void setDeadLineDate(LocalDate deadline) {
 		this.deadLineDate = deadline;
 	}
 	*/

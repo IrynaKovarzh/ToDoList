@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.util.*;
 	
 public class ToDoListApp {
 
@@ -37,16 +37,23 @@ public class ToDoListApp {
 	            case 'C' : 
 	            	  // check deadline
 	                     break;
+	            case 'F' : 
+	            	  // findAll an item, by title
+	                     break;
+	            case 'I' : 
+	            	  // find an item, by id 
+	            	printEvent(sc);
+	                     break;         
 	            case 'S' : 
 	          	  // to sort
+	            	sortEventList(sc);
 	                   break;
 	            case 'Q' : 
 	            	newAction = false;
 	            	System.out.println(".........");	
 	                     break;       
 	            default: 
-	            	//read again
-	            	// newAction = false;
+	            	//read again	            	
 	                     break;
 			  }        
 			
@@ -75,41 +82,36 @@ public class ToDoListApp {
 			System.out.println ("<Q> - to quit");
 			System.out.println ("<R> - to read the list");
 			System.out.println ("<A> - to add an item");
-			System.out.println ("<D> - to deleate an item");
+			System.out.println ("<D> - to deleate an item");			
+			System.out.println ("<E> - to edit menu");
+			System.out.println ("<C> - to check expired date");
+			System.out.println ("<F> - to find an event");
+			System.out.println ("<I> - to find an event, by ID number");
+			System.out.println ("<S> - to sort");
 	        // ...
 		}
 		
 		private void addEvent(Scanner sc) {
 			
-			// To try and catch ...
-			
+			// To try and catch ...			
 			 System.out.println();
 			 System.out.println("Adding an event");
       	     System.out.println("Input the title of the plan:");
       	     String title = "";
       	     if(sc.hasNext()) {
-      	     title = sc.nextLine();			
-			//String title = "PNummer1";
+      	     title = sc.nextLine();						
       	     }
-      	     
- 		  //  String dateFormat = "d/MM/yyyy";
+      	      		  
  		    String dateFormat = "dd-MM-yyyy";
  		    System.out.println("Input the date to perform to ( "+ dateFormat + " ):");
  		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 
  		    String dateStr = "";
  		    if(sc.hasNext()) {
  		       dateStr = sc.nextLine();
- 		   }
- 		   //convert String to LocalDate     
+ 		   } 		       
  		  LocalDate date = LocalDate.parse(dateStr, formatter);
- 		  
- 		// String date = "16/08/2016";
- 		  
- 		 //   LocalDate date = LocalDate.now();
-			
-			//Event event = new Event("PNummer1", LocalDate.now());  //
-			
-			eventList.addEvent(new Event(title, date));
+ 		  			
+		  eventList.addEvent(new Event(title, date));
 		}
 		
 		private void printList() {			
@@ -117,44 +119,119 @@ public class ToDoListApp {
 		}
 		
 private void deleteEvent(Scanner sc) {
-	//private void deleteEvent() {
-			
-			// To try and catch ...
-			
+			// To try and catch ...			
 			 System.out.println();
-			 System.out.println("Deletng an event");
+			 System.out.println("Deleting an event");
       	     System.out.println("Input the number:");
-      	  //  int id = sc.nextInt();
+      	     
       	   int id = 0;
-      	   // String title = sc.nextLine();			
-			//String title = "PNummer1";
       	   if (sc.hasNextInt()) {
       		 id = sc.nextInt();
       	   }
 			
- 		 // id = 1;
 		  eventList.deleteEvent(id);
 		}
 
-private void editEvent(Scanner sc) {
-	//private void deleteEvent() {
-			
+private void editEvent(Scanner sc) {			
 			// To try and catch ...
 			
 			 System.out.println();
 			 System.out.println("Editing an event");
-      	     System.out.println("Input the number:");
-      	  //  int id = sc.nextInt();
-      	   int id = 0;
-      	   // String title = sc.nextLine();			
-			//String title = "PNummer1";
+      	     System.out.println("Input the id-number:");
+       	   
+      	     int id = 0;
       	   if (sc.hasNextInt()) {
       		 id = sc.nextInt();
       	   }
 			
- 		 // id = 1;
-		//  eventList.editEvent(id);
+      	   //to find the event
+      	  Event event = eventList.getEventById(id);
+      	   if (event == null) {
+      		 System.out.println("There is no event with this id.");
+      		   return;
+      	   }
+      	   
+      	   //to ask what to change
+      	 String title = event.getTitle();
+  	     System.out.println(title);
+  	     System.out.println("Input/Edit the title of the plan:");  	    
+  	     if(sc.hasNext()) {
+  	     title = sc.next();					
+  	     }
+  	     
+       	    String dateStr = event.getDeadLineDate().toString();
+       	    System.out.println(dateStr);
+		    String dateFormat = "dd-MM-yyyy";
+		    System.out.println("Input/Edit the date to perform to ( "+ dateFormat + " ):");
+		    if(sc.hasNext()) {
+		       dateStr = sc.next();
+		   }
+		   //convert String to LocalDate   
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 	
+		  LocalDate date = LocalDate.parse(dateStr, formatter);
+      	   
+		eventList.editEvent(id, new Event(title, date));
 		}
 
+private void printEvent(Scanner sc) {
+	 System.out.println("Finding an event");
+	     System.out.println("Input the id-number:");
+	   
+	   int id = 0;	   
+	   if (sc.hasNextInt()) {
+		 id = sc.nextInt();
+	   }
+	
+	   //to find the event
+	  Event event = eventList.getEventById(id);
+	   if (event == null) {
+		 System.out.println("There is no event with this id.");
+		   return;
+	   } 
+	   
+	   System.out.println(event);
 	}
 
+private void sortEventList(Scanner sc) {
+	 System.out.println("Sorting the list");
+	 
+	 System.out.println ("Ways to sort:");
+	 System.out.println ("<D> - by date");
+	 System.out.println ("<T> - to title");
+	 System.out.println();
+	 System.out.println("Input the way to sort:");
+	 
+	   String inpStr = ""; 
+	   if(sc.hasNext()) {
+		   inpStr = sc.nextLine();			   
+	   }
+	   Character menuButton = 'D';
+	   if (inpStr!= null && inpStr.length() != 0) {
+	    		menuButton = inpStr.toUpperCase().charAt(0);
+	    	}
+	   
+	   List<Event> sortedList = eventList.getList();
+	   switch (menuButton) {
+       case 'T':  
+       	// by title
+   		Collections.sort(sortedList,
+   				         new Comparator<Event>(){
+                            public int compare(Event ev1, Event ev2){
+                            return ev1.getTitle().compareToIgnoreCase(ev2.getTitle());	                   
+                            }}
+   				);   		
+                break;
+       case 'D':
+       	// by date
+    	   Collections.sort(sortedList,
+				      new Comparator<Event>(){
+                      public int compare(Event ev1, Event ev2){
+                      return ev1.getDeadLineDate().compareTo(ev2.getDeadLineDate());	                     
+                      }}
+    			   );
+                break;
+	   }
+	   	
+	  EventList.toPrintList(sortedList);
+	}
+}

@@ -3,9 +3,13 @@ import java.util.*;
 
 public class EventList {
 
-	private List<Event> eventList = new ArrayList<Event>();
+	private static List<Event> eventList = new ArrayList<Event>();
 	
 	public void toPrint() {
+		toPrintList(eventList);
+	}
+	
+	public static void toPrintList(List<Event> eventList) {
 		System.out.println();
 		System.out.println("ToDoList");
 		System.out.println("========");
@@ -14,6 +18,10 @@ public class EventList {
 			Event event = it.next();
 			System.out.println(event);		
 		}
+	}
+	
+	public List<Event> getList(){
+		return  eventList ;
 	}
 	
 	public void addEvent(Event event) {
@@ -39,20 +47,43 @@ public class EventList {
 	}
 	*/
 	
+	private int getIndexEventById(int id){
+		int index = -1;
+		Iterator<Event> it = eventList.iterator();
+		while(it.hasNext()) {
+			Event event = it.next();
+			if (event.getId() == id) return eventList.indexOf(event);  
+		//	System.out.println(event);		
+		}
+		return index;
+	}
+	
+   public Event getEventById(int id){
+	   int index = getIndexEventById(id);
+	   if (index < 0) return null;
+		return eventList.get(index);
+	}
+	
+	public void editEvent(int id, Event event) {
+	int index = getIndexEventById(id);
+	if (index >= 0) eventList.set(index, event);		
+	}
+	
+	/*
 	public void editEvent(Event elementOrig, Event elementNew)  {
 		int index = eventList.indexOf(elementOrig); 
 		eventList.set(index, elementNew);		
 	}
+	*/
 	
 	public List<Event> getAllBeforeDate(LocalDate Date){
 	return null;	
 	}
 
-	public void removeAllDoneExpired(){ //for today
+	public void removeAllDoneExpired(){ 
 		//LocalDate today = LocalDate.now(); 
 		
-				
-		System.out.println("Done");
+		System.out.println("Not implemented yet");
 	}
 	
 }
