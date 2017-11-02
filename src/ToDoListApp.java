@@ -126,6 +126,7 @@ private void editEvent(Scanner sc) {
       	   //to find the event
       	  Event event = eventList.getEventById(id);
       	   if (event == null) {
+      		 System.out.println();
       		 System.out.println("There is no event with this id.");
       		   return;
       	   }
@@ -207,6 +208,7 @@ private void findById(Scanner sc) {
 	   //to find the event
 	  Event event = eventList.getEventById(id);
 	   if (event == null) {
+		 System.out.println();
 		 System.out.println("There is no event with this id.");
 		   return;
 	   } 
@@ -226,6 +228,7 @@ private void findAllByTitle(Scanner sc) {
 	if (!resList.isEmpty()) {
     EventListContainer.toPrintList(resList);
 	} else {
+		System.out.println();
 		System.out.println("None of such plans");
 	}
 }
@@ -269,7 +272,7 @@ private LocalDate getDate(Scanner sc) {
 LocalDate date = null;
  while(date == null) {	
  
-	 String dateFormat = "dd-MM-yyyy";
+	 String dateFormat = "yyyy-MM-dd";
   System.out.println("Input the date to perform to ( "+ dateFormat + " ):");
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 
   String dateStr = "";  
