@@ -220,7 +220,8 @@ private Character takeMenuButton(Scanner sc){
 	   System.out.println();
 	   System.out.println("MenuButton:");
 	   if(sc.hasNext()) {
-		   inpStr = sc.next();	        		   
+		   //inpStr = sc.next();	
+		   inpStr = sc.nextLine(); //for whole line reading including space
 	   } 
 	   /*else {
 		   
@@ -237,7 +238,8 @@ private String getText(Scanner sc){
 String text = "";  
   // To try and catch ...
     if(sc.hasNext()) {
-    	text = sc.next();						
+    	//text = sc.next();	
+    	text = sc.nextLine();
     }
     
 return text;
