@@ -5,15 +5,18 @@ public class EventList {
 
 	private static List<Event> eventList = new ArrayList<Event>();
 	
+	/*
 	public void toPrint() {
 		toPrintList(eventList);
 	}
+	*/
 	
 	
 	public void printFromIryna() {
 		System.out.println("Hello");
 	}
 		
+	/*
 	public static void toPrintList(List<Event> eventList) {
 		System.out.println();
 		System.out.println("ToDoList");
@@ -24,6 +27,7 @@ public class EventList {
 			System.out.println(event);		
 		}
 	}
+	*/
 	
 	public List<Event> getList(){
 		return  eventList ;
