@@ -9,6 +9,12 @@ public class EventList {
 		toPrintList(eventList);
 	}
 	
+	
+	public void printFromIryna() {
+		System.out.println("Hello");
+	}
+	
+	
 	public static void toPrintList(List<Event> eventList) {
 		System.out.println();
 		System.out.println("ToDoList");
