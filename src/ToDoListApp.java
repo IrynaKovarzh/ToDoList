@@ -43,7 +43,8 @@ public class ToDoListApp {
 	            	eventList.removeAllDoneExpired();
 	                     break;     
 	            case 'F' :
-            	//	eventList.findItemByTitle("gy"); 
+	            	// find all by title, contains 
+            	findByTitle(sc); 
             		break;
 
 	            case 'I' : 
@@ -199,6 +200,15 @@ private void sortEventList(Scanner sc) {
 	   	
 	  EventList.toPrintList(sortedList);
 	}
+
+private void findByTitle(Scanner sc) {
+	System.out.println("Searching");
+	System.out.println("Input text");
+	
+	String searchText = getText(sc);
+
+eventList.findItemByTitle(searchText);
+}
 
 private Character takeMenuButton(Scanner sc){
 	Character menuButton = 'L'; //

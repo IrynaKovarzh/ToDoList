@@ -13,8 +13,7 @@ public class EventList {
 	public void printFromIryna() {
 		System.out.println("Hello");
 	}
-	
-	
+		
 	public static void toPrintList(List<Event> eventList) {
 		System.out.println();
 		System.out.println("ToDoList");
@@ -112,22 +111,22 @@ public class EventList {
 				}					
 			}
 			}
-			
-/*
+						
 		public void findItemByTitle(String title) {
 			title.trim();
+			String t = title.toLowerCase();
+			boolean hasFound = false;
 			Iterator<Event> it = eventList.iterator();
 			while (it.hasNext()) {
 				Event item = it.next();
-				if(item.getTitle().equals(title)){
-					
-				//	System.out.println("Item found in records");
+				if(item.getTitle().toLowerCase().contains(t)){				
 					System.out.println(item);
-				}else {
-					System.out.println("None of such plans");
+					hasFound = true;
 				}
-				
-			}			
+			}
+			if (!hasFound) {
+					System.out.println("None of such plans");
+			}				
 		}	
-	*/	
+		
 }
