@@ -235,37 +235,53 @@ private Character takeMenuButton(Scanner sc){
 }
 
 private String getText(Scanner sc){     	   
-String text = "";  
-  // To try and catch ...
+
+	String text = "";  
+while(text.length() == 0) {
+	try {
     if(sc.hasNext()) {
-    	text = sc.next();						
-    }
-    
+    	text = sc.nextLine();						
+    } 
+    } catch (Exception e) { } // any exception  
+}
+
 return text;
 }
 
-private LocalDate getDate(Scanner sc) {
+private LocalDate getDate(Scanner sc) { 
  
-  String dateFormat = "dd-MM-yyyy";
+LocalDate date = null;
+ while(date == null) {	
+ 
+	 String dateFormat = "dd-MM-yyyy";
   System.out.println("Input the date to perform to ( "+ dateFormat + " ):");
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 
   String dateStr = "";  
+ 
+  try {
   if(sc.hasNext()) {
       dateStr = sc.next();
+      date = LocalDate.parse(dateStr, formatter);
   }
-  
-LocalDate date = LocalDate.parse(dateStr, formatter);
-
+ } catch (Exception e) { } // any exception  
+ }
+ 
 return date;
 }
 
 public int getNumber(Scanner sc) {       	
-	   // To try and catch ...
+	 
 	   int id = 0;
+	   while (id == 0) {
+	   
+		   try {
 	   if (sc.hasNextLine()) {
 		 Character ch = sc.next().toCharArray()[0];
 		 id = Character.getNumericValue(ch);
-	   }	   
+	   }
+	   } catch (Exception e) { } // any exception
+			  	   
+	   }
 	return id;
 }
 }
