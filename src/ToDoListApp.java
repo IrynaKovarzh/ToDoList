@@ -250,7 +250,7 @@ public int getNumber(Scanner sc) {
 	   int id = 0;
 	   if (sc.hasNextLine()) {
 		 Character ch = sc.next().toCharArray()[0];
-		 Character.getNumericValue(ch);
+		 id = Character.getNumericValue(ch);
 	   }	   
 	return id;
 }
