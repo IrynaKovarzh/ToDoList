@@ -44,7 +44,7 @@ public class ToDoListApp {
 	                     break;     
 	            case 'F' :
 	            	// find all by title, contains 
-            	findByTitle(sc); 
+            	findAllByTitle(sc); 
             		break;
 
 	            case 'I' : 
@@ -204,14 +204,18 @@ private void findById(Scanner sc) {
 	   System.out.println(event);
 	}
 
-private void findByTitle(Scanner sc) {
+private void findAllByTitle(Scanner sc) {
 	System.out.println("SEARCHING");
 	System.out.println("Input text");
 
 	String searchText = getText(sc);
-
-	System.out.println();
-eventList.findItemByTitle(searchText);
+	List<Event> resList = eventList.getAllEventByTitle(searchText);
+	
+	if (!resList.isEmpty()) {
+    EventList.toPrintList(resList);
+	} else {
+		System.out.println("None of such plans");
+	}
 }
 
 private Character takeMenuButton(Scanner sc){

@@ -68,6 +68,21 @@ public class EventList {
 	   if (index < 0) return null;
 		return eventList.get(index);
 	}
+   
+   public List<Event> getAllEventByTitle(String title) {
+	   List<Event> resList = new ArrayList<Event>(); 
+   
+		String t = title.toLowerCase();		
+		Iterator<Event> it = eventList.iterator();
+		while (it.hasNext()) {
+			Event item = it.next();
+			if(item.getTitle().toLowerCase().contains(t)){				
+				resList.add(item);
+			}
+		}
+		
+		return resList;
+	}	
 	
 	public void editEvent(int id, Event event) {
 	int index = getIndexEventById(id);	
@@ -99,7 +114,7 @@ public class EventList {
 			}
 		}
 			
-			public void getAllIsExpired(){ //for today
+	public void getAllIsExpired(){ //for today
 				LocalDate today = LocalDate.now();
 				
 				System.out.println("Expired");
@@ -111,22 +126,5 @@ public class EventList {
 				}					
 			}
 			}
-						
-		public void findItemByTitle(String title) {
-			title.trim();
-			String t = title.toLowerCase();
-			boolean hasFound = false;
-			Iterator<Event> it = eventList.iterator();
-			while (it.hasNext()) {
-				Event item = it.next();
-				if(item.getTitle().toLowerCase().contains(t)){				
-					System.out.println(item);
-					hasFound = true;
-				}
-			}
-			if (!hasFound) {
-					System.out.println("None of such plans");
-			}				
-		}	
-		
+								
 }
