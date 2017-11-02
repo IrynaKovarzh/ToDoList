@@ -25,12 +25,14 @@ public class Event {
 		return id;
 	}
 
-	/*
 	private void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
-	*/
-
+	
+	public void CopyIdFrom(Event onotherEvent) {
+	this.setId(onotherEvent.getId());
+	}
+	
 	@Override
 	public String toString() {
 		return "*" + id + " " + title + " [DL : " + deadLineDate + "]"; //

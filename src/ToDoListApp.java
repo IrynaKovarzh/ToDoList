@@ -58,19 +58,7 @@ public class ToDoListApp {
 			  }        
 			
 	           if (newAction) {
-	        	   String inpStr = ""; 
-	        	   System.out.println();
-	        	   System.out.println("MenuButton:");
-	        	   if(sc.hasNext()) {
-	        		   inpStr = sc.nextLine();	        		   
-	        	   } 
-	        	   /*else {
-	        		   
-	        	   }*/
-	   		    	   		    
-	   		    	if (inpStr!= null && inpStr.length() != 0) {
-	   		    		menuButton = inpStr.toUpperCase().charAt(0);
-	   		    	}
+	        	   menuButton = takeMenuButton(sc);	   		    	
 	           }	   	     					
 			}
 			sc.close();
@@ -92,25 +80,14 @@ public class ToDoListApp {
 		}
 		
 		private void addEvent(Scanner sc) {
-			
-			// To try and catch ...			
+												
 			 System.out.println();
 			 System.out.println("Adding an event");
       	     System.out.println("Input the title of the plan:");
-      	     String title = "";
-      	     if(sc.hasNext()) {
-      	     title = sc.nextLine();						
-      	     }
-      	      		  
- 		    String dateFormat = "dd-MM-yyyy";
- 		    System.out.println("Input the date to perform to ( "+ dateFormat + " ):");
- 		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 
- 		    String dateStr = "";
- 		    if(sc.hasNext()) {
- 		       dateStr = sc.nextLine();
- 		   } 		       
- 		  LocalDate date = LocalDate.parse(dateStr, formatter);
- 		  			
+      	            	    
+      	     String title = getText(sc);      	    
+            LocalDate date = getDate(sc);
+       	   
 		  eventList.addEvent(new Event(title, date));
 		}
 		
@@ -119,16 +96,13 @@ public class ToDoListApp {
 		}
 		
 private void deleteEvent(Scanner sc) {
-			// To try and catch ...			
+						
 			 System.out.println();
 			 System.out.println("Deleting an event");
       	     System.out.println("Input the number:");
       	     
-      	   int id = 0;
-      	   if (sc.hasNextInt()) {
-      		 id = sc.nextInt();
-      	   }
-			
+      	   int id = getNumber(sc);       
+      	   
 		  eventList.deleteEvent(id);
 		}
 
@@ -155,21 +129,13 @@ private void editEvent(Scanner sc) {
       	 String title = event.getTitle();
   	     System.out.println(title);
   	     System.out.println("Input/Edit the title of the plan:");  	    
-  	     if(sc.hasNext()) {
-  	     title = sc.next();					
-  	     }
+  	     
+  	     title = sc.next();	 
   	     
        	    String dateStr = event.getDeadLineDate().toString();
-       	    System.out.println(dateStr);
-		    String dateFormat = "dd-MM-yyyy";
-		    System.out.println("Input/Edit the date to perform to ( "+ dateFormat + " ):");
-		    if(sc.hasNext()) {
-		       dateStr = sc.next();
-		   }
-		   //convert String to LocalDate   
-		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 	
-		  LocalDate date = LocalDate.parse(dateStr, formatter);
-      	   
+       	    System.out.println(dateStr);    
+       	    LocalDate date = getDate(sc);
+       	 
 		eventList.editEvent(id, new Event(title, date));
 		}
 
@@ -201,14 +167,7 @@ private void sortEventList(Scanner sc) {
 	 System.out.println();
 	 System.out.println("Input the way to sort:");
 	 
-	   String inpStr = ""; 
-	   if(sc.hasNext()) {
-		   inpStr = sc.nextLine();			   
-	   }
-	   Character menuButton = 'D';
-	   if (inpStr!= null && inpStr.length() != 0) {
-	    		menuButton = inpStr.toUpperCase().charAt(0);
-	    	}
+	  Character menuButton = takeMenuButton(sc);
 	   
 	   List<Event> sortedList = eventList.getList();
 	   switch (menuButton) {
@@ -234,4 +193,60 @@ private void sortEventList(Scanner sc) {
 	   	
 	  EventList.toPrintList(sortedList);
 	}
+
+private Character takeMenuButton(Scanner sc){
+	Character menuButton = 'L'; //
+	 
+	String inpStr = ""; 
+	   System.out.println();
+	   System.out.println("MenuButton:");
+	   if(sc.hasNext()) {
+		   inpStr = sc.next();	        		   
+	   } 
+	   /*else {
+		   
+	   }*/
+	    	   		    
+	    	if (inpStr!= null && inpStr.length() != 0) {
+	    	menuButton = inpStr.toUpperCase().charAt(0);
+	    	}
+	    	
+	    	return	menuButton; 	
 }
+
+private String getText(Scanner sc){     	   
+String text = "";  
+  // To try and catch ...
+    if(sc.hasNext()) {
+    	text = sc.next();						
+    }
+    
+return text;
+}
+
+private LocalDate getDate(Scanner sc) {
+ 
+  String dateFormat = "dd-MM-yyyy";
+  System.out.println("Input the date to perform to ( "+ dateFormat + " ):");
+  DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 
+  String dateStr = "";  
+  if(sc.hasNext()) {
+      dateStr = sc.next();
+  }
+  
+LocalDate date = LocalDate.parse(dateStr, formatter);
+
+return date;
+}
+
+public int getNumber(Scanner sc) {       	
+	   // To try and catch ...
+	   int id = 0;
+	   if (sc.hasNextLine()) {
+		 Character ch = sc.next().toCharArray()[0];
+		 Character.getNumericValue(ch);
+	   }	   
+	return id;
+}
+}
+

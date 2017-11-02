@@ -65,7 +65,8 @@ public class EventList {
 	}
 	
 	public void editEvent(int id, Event event) {
-	int index = getIndexEventById(id);
+	int index = getIndexEventById(id);	
+	event.CopyIdFrom(eventList.get(index));
 	if (index >= 0) eventList.set(index, event);		
 	}
 	
