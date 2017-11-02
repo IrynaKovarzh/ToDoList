@@ -15,7 +15,7 @@ public class ToDoListApp {
 			Character menuButton = 'H';		
 			while (newAction) {
 		    	switch (menuButton) {
-	            case 'R':  
+	            case 'P':  
 	            	// to read the list
 	            	printList();
 	                     break;
@@ -36,10 +36,16 @@ public class ToDoListApp {
 	                     break;
 	            case 'C' : 
 	            	  // check deadline
+	            	eventList.getAllIsExpired();
 	                     break;
-	            case 'F' : 
-	            	  // findAll an item, by title
-	                     break;
+	            case 'R' : 
+	            	  // remove all that are expired
+	            	eventList.removeAllDoneExpired();
+	                     break;     
+	            case 'F' :
+            	//	eventList.findItemByTitle("gy"); 
+            		break;
+
 	            case 'I' : 
 	            	  // find an item, by id 
 	            	printEvent(sc);

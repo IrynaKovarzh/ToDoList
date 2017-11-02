@@ -78,13 +78,50 @@ public class EventList {
 	*/
 	
 	public List<Event> getAllBeforeDate(LocalDate Date){
+		System.out.println("Not implemented yet");
 	return null;	
 	}
-
-	public void removeAllDoneExpired(){ 
-		//LocalDate today = LocalDate.now(); 
-		
-		System.out.println("Not implemented yet");
-	}
 	
+		public void removeAllDoneExpired(){ //for today
+			LocalDate today = LocalDate.now();
+			
+			Iterator<Event> it = eventList.iterator();
+			while(it.hasNext()) {
+				Event event = it.next();
+			if (event.getDeadLineDate().isBefore(today)) {
+				it.remove();
+			}								
+			}
+		}
+			
+			public void getAllIsExpired(){ //for today
+				LocalDate today = LocalDate.now();
+				
+				System.out.println("Expired");
+				Iterator<Event> it = eventList.iterator();
+				while(it.hasNext()) {
+					Event event = it.next();
+				if (event.getDeadLineDate().isBefore(today)) {
+					System.out.println(event);
+				}					
+			}
+			}
+			
+/*
+		public void findItemByTitle(String title) {
+			title.trim();
+			Iterator<Event> it = eventList.iterator();
+			while (it.hasNext()) {
+				Event item = it.next();
+				if(item.getTitle().equals(title)){
+					
+				//	System.out.println("Item found in records");
+					System.out.println(item);
+				}else {
+					System.out.println("None of such plans");
+				}
+				
+			}			
+		}	
+	*/	
 }
