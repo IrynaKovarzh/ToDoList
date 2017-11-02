@@ -49,7 +49,7 @@ public class ToDoListApp {
 
 	            case 'I' : 
 	            	  // find an item, by id 
-	            	printEvent(sc);
+	            	findById(sc);
 	                     break;         
 	            case 'S' : 
 	          	  // to sort
@@ -89,8 +89,8 @@ public class ToDoListApp {
 		private void addEvent(Scanner sc) {
 												
 			 System.out.println();
-			 System.out.println("Adding an event");
-      	     System.out.println("Input the title of the plan:");
+			 System.out.println("ADDING");
+		     System.out.println("Input the title of the plan:");
       	            	    
       	     String title = getText(sc);      	    
             LocalDate date = getDate(sc);
@@ -105,8 +105,8 @@ public class ToDoListApp {
 private void deleteEvent(Scanner sc) {
 						
 			 System.out.println();
-			 System.out.println("Deleting an event");
-      	     System.out.println("Input the number:");
+			 System.out.println("DELETING");
+		     System.out.println("Input the number:");
       	     
       	   int id = getNumber(sc);       
       	   
@@ -117,8 +117,8 @@ private void editEvent(Scanner sc) {
 			// To try and catch ...
 			
 			 System.out.println();
-			 System.out.println("Editing an event");
-      	     System.out.println("Input the id-number:");
+			 System.out.println("EDITING");
+			 System.out.println("Input the id-number:");
        	   
       	     int id = 0;
       	   if (sc.hasNextInt()) {
@@ -146,28 +146,9 @@ private void editEvent(Scanner sc) {
 		eventList.editEvent(id, new Event(title, date));
 		}
 
-private void printEvent(Scanner sc) {
-	 System.out.println("Finding an event");
-	     System.out.println("Input the id-number:");
-	   
-	   int id = 0;	   
-	   if (sc.hasNextInt()) {
-		 id = sc.nextInt();
-	   }
-	
-	   //to find the event
-	  Event event = eventList.getEventById(id);
-	   if (event == null) {
-		 System.out.println("There is no event with this id.");
-		   return;
-	   } 
-	   
-	   System.out.println(event);
-	}
-
 private void sortEventList(Scanner sc) {
-	 System.out.println("Sorting the list");
-	 
+	System.out.println("SORTING");
+	
 	 System.out.println ("Ways to sort:");
 	 System.out.println ("<D> - by date");
 	 System.out.println ("<T> - to title");
@@ -201,12 +182,34 @@ private void sortEventList(Scanner sc) {
 	  EventList.toPrintList(sortedList);
 	}
 
-private void findByTitle(Scanner sc) {
-	System.out.println("Searching");
-	System.out.println("Input text");
+private void findById(Scanner sc) {
+	System.out.println();
+	System.out.println("SEARCHING");
+	System.out.println("Input the id-number:");
+	   
+	   int id = 0;	   
+	   if (sc.hasNextInt()) {
+		 id = sc.nextInt();
+	   }
 	
+		System.out.println();
+	   //to find the event
+	  Event event = eventList.getEventById(id);
+	   if (event == null) {
+		 System.out.println("There is no event with this id.");
+		   return;
+	   } 
+	   
+	   System.out.println(event);
+	}
+
+private void findByTitle(Scanner sc) {
+	System.out.println("SEARCHING");
+	System.out.println("Input text");
+
 	String searchText = getText(sc);
 
+	System.out.println();
 eventList.findItemByTitle(searchText);
 }
 
