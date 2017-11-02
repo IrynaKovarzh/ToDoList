@@ -57,6 +57,7 @@ public class ToDoListApp {
 	                   break;
 	            case 'Q' : 
 	            	newAction = false;
+	            	System.out.println();
 	            	System.out.println(".........");	
 	                     break;       
 	            default: 
