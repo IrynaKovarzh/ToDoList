@@ -12,6 +12,4 @@ public class EventListContainer {
 			System.out.println(event);		
 		}
 	}
-
-	
 }

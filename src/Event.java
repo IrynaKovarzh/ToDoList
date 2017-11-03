@@ -10,10 +10,27 @@ public class Event {
 	private Status status;
 	//private String description;
 	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDeadLineDate(LocalDate deadLineDate) {
+		this.deadLineDate = deadLineDate;
+	}
+
 	public Event(String title, LocalDate deadLineDate) {
 	    this.id = nextIdNum;
 		this.title = title;
 		this.deadLineDate = deadLineDate;
+		status = Status.TODO;
 		
 		++nextIdNum;
 	}
@@ -36,7 +53,7 @@ public class Event {
 	
 	@Override
 	public String toString() {
-		return "*" + id + " " + title + " [DL : " + deadLineDate + "]"; //
+		return "*" + id + " " + title + " [DL : " + deadLineDate + "  Status: " + status + "]"; //
 	}
 
 	public String getTitle() {

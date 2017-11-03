@@ -1,4 +1,4 @@
 
 public enum Status {
-DONE, TODO, MAYBE 
+	DONE, TODO, MAYBE 
 }
