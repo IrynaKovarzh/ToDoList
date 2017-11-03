@@ -113,6 +113,7 @@ public class EventList {
 			}
 						
 		public void findItemByTitle(String title) {
+		
 			title.trim();
 			String t = title.toLowerCase();
 			boolean hasFound = false;
@@ -127,6 +128,7 @@ public class EventList {
 			if (!hasFound) {
 					System.out.println("None of such plans");
 			}				
+
 		}	
 		
 }
