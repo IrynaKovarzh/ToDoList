@@ -5,15 +5,18 @@ public class EventList {
 
 	private static List<Event> eventList = new ArrayList<Event>();
 	
+	/*
 	public void toPrint() {
 		toPrintList(eventList);
 	}
+	*/
 	
 	
 	public void printFromIryna() {
 		System.out.println("Hello");
 	}
 		
+	/*
 	public static void toPrintList(List<Event> eventList) {
 		System.out.println();
 		System.out.println("ToDoList");
@@ -24,6 +27,7 @@ public class EventList {
 			System.out.println(event);		
 		}
 	}
+	*/
 	
 	public List<Event> getList(){
 		return  eventList ;
@@ -68,6 +72,21 @@ public class EventList {
 	   if (index < 0) return null;
 		return eventList.get(index);
 	}
+   
+   public List<Event> getAllEventByTitle(String title) {
+	   List<Event> resList = new ArrayList<Event>(); 
+   
+		String t = title.toLowerCase();		
+		Iterator<Event> it = eventList.iterator();
+		while (it.hasNext()) {
+			Event item = it.next();
+			if(item.getTitle().toLowerCase().contains(t)){				
+				resList.add(item);
+			}
+		}
+		
+		return resList;
+	}	
 	
 	public void editEvent(int id, Event event) {
 	int index = getIndexEventById(id);	
@@ -99,7 +118,7 @@ public class EventList {
 			}
 		}
 			
-			public void getAllIsExpired(){ //for today
+	public void getAllIsExpired(){ //for today
 				LocalDate today = LocalDate.now();
 				
 				System.out.println("Expired");
@@ -130,5 +149,4 @@ public class EventList {
 			}				
 
 		}	
-		
 }

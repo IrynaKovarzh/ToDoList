@@ -44,7 +44,7 @@ public class ToDoListApp {
 	                     break;     
 	            case 'F' :
 	            	// find all by title, contains 
-            	findByTitle(sc); 
+            	findAllByTitle(sc); 
             		break;
 
 	            case 'I' : 
@@ -66,7 +66,7 @@ public class ToDoListApp {
 			  }        
 			
 	           if (newAction) {
-	        	   menuButton = takeMenuButton(sc);	   		    	
+	        	   menuButton = getMenuButton(sc);	   		    	
 	           }	   	     					
 			}
 			sc.close();
@@ -91,44 +91,42 @@ public class ToDoListApp {
 												
 			 System.out.println();
 			 System.out.println("ADDING");
-		     System.out.println("Input the title of the plan:");
-      	            	    
+			 
+		     System.out.println("Input the title of the plan:");     	            	   
       	     String title = getText(sc);      	    
+      	     
             LocalDate date = getDate(sc);
        	   
 		  eventList.addEvent(new Event(title, date));
 		}
 		
 		private void printList() {			
-			eventList.toPrint();
+			EventListContainer.toPrintList(eventList.getList());
 		}
 		
 private void deleteEvent(Scanner sc) {
 						
 			 System.out.println();
 			 System.out.println("DELETING");
-		     System.out.println("Input the number:");
-      	     
+			 
+		     System.out.println("Input the number:");      	     
       	   int id = getNumber(sc);       
       	   
 		  eventList.deleteEvent(id);
 		}
 
 private void editEvent(Scanner sc) {			
-			// To try and catch ...
-			
+						
 			 System.out.println();
 			 System.out.println("EDITING");
-			 System.out.println("Input the id-number:");
-       	   
-      	     int id = 0;
-      	   if (sc.hasNextInt()) {
-      		 id = sc.nextInt();
-      	   }
+			 
+			 System.out.println("Input the id-number:");       	   
+			 int id = getNumber(sc);
 			
       	   //to find the event
       	  Event event = eventList.getEventById(id);
       	   if (event == null) {
+      		 System.out.println();
       		 System.out.println("There is no event with this id.");
       		   return;
       	   }
@@ -136,9 +134,9 @@ private void editEvent(Scanner sc) {
       	   //to ask what to change
       	 String title = event.getTitle();
   	     System.out.println(title);
-  	     System.out.println("Input/Edit the title of the plan:");  	    
   	     
-  	     title = sc.next();	 
+  	     System.out.println("Input/Edit the title of the plan:");  	      	     
+  	     title = getText(sc);	 
   	     
        	    String dateStr = event.getDeadLineDate().toString();
        	    System.out.println(dateStr);    
@@ -147,16 +145,31 @@ private void editEvent(Scanner sc) {
 		eventList.editEvent(id, new Event(title, date));
 		}
 
-private void sortEventList(Scanner sc) {
-	System.out.println("SORTING");
-	
+private void toPrintSubMenuSort() {
 	 System.out.println ("Ways to sort:");
 	 System.out.println ("<D> - by date");
-	 System.out.println ("<T> - to title");
+	 System.out.println ("<T> - to title");	 
+    // ...
+}
+
+private Character getSubMenuSortButton(Scanner sc){
+	Character ch = 'L';
 	 System.out.println();
 	 System.out.println("Input the way to sort:");
-	 
-	  Character menuButton = takeMenuButton(sc);
+	while (ch != 'D' && ch != 'T') {
+		ch = getMenuButton(sc);
+	}
+	
+	return ch;
+}
+
+private void sortEventList(Scanner sc) {
+	
+	System.out.println();
+	System.out.println("SORTING");
+	
+	  toPrintSubMenuSort();		 
+	  Character menuButton = getSubMenuSortButton(sc);
 	   
 	   List<Event> sortedList = eventList.getList();
 	   switch (menuButton) {
@@ -180,23 +193,22 @@ private void sortEventList(Scanner sc) {
                 break;
 	   }
 	   	
-	  EventList.toPrintList(sortedList);
+	  EventListContainer.toPrintList(sortedList);
 	}
 
 private void findById(Scanner sc) {
+	
 	System.out.println();
 	System.out.println("SEARCHING");
-	System.out.println("Input the id-number:");
-	   
-	   int id = 0;	   
-	   if (sc.hasNextInt()) {
-		 id = sc.nextInt();
-	   }
 	
+	System.out.println("Input the id-number:");
+	   int id = getNumber(sc);	   
+	   	
 		System.out.println();
 	   //to find the event
 	  Event event = eventList.getEventById(id);
 	   if (event == null) {
+		 System.out.println();
 		 System.out.println("There is no event with this id.");
 		   return;
 	   } 
@@ -204,29 +216,36 @@ private void findById(Scanner sc) {
 	   System.out.println(event);
 	}
 
-private void findByTitle(Scanner sc) {
-	System.out.println("SEARCHING");
-	System.out.println("Input text");
-
-	String searchText = getText(sc);
-
+private void findAllByTitle(Scanner sc) {
 	System.out.println();
-eventList.findItemByTitle(searchText);
+	System.out.println("SEARCHING");
+	
+	System.out.println("Input text");
+	String searchText = getText(sc);
+	
+	List<Event> resList = eventList.getAllEventByTitle(searchText);
+	
+	if (!resList.isEmpty()) {
+    EventListContainer.toPrintList(resList);
+	} else {
+		System.out.println();
+		System.out.println("None of such plans");
+	}
 }
 
-private Character takeMenuButton(Scanner sc){
+private Character getMenuButton(Scanner sc){
 	Character menuButton = 'L'; //
 	 
 	String inpStr = ""; 
 	   System.out.println();
 	   System.out.println("MenuButton:");
+	  
+	   try {
 	   if(sc.hasNext()) {
 		   //inpStr = sc.next();	
 		   inpStr = sc.nextLine(); //for whole line reading including space-
 	   } 
-	   /*else {
-		   
-	   }*/
+	   } catch (Exception e) { } // any exception
 	    	   		    
 	    	if (inpStr!= null && inpStr.length() != 0) {
 	    	menuButton = inpStr.toUpperCase().charAt(0);
@@ -255,7 +274,7 @@ private LocalDate getDate(Scanner sc) {
 LocalDate date = null;
  while(date == null) {	
  
-	 String dateFormat = "dd-MM-yyyy";
+	 String dateFormat = "yyyy-MM-dd";
   System.out.println("Input the date to perform to ( "+ dateFormat + " ):");
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat); 
   String dateStr = "";  
