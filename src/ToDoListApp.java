@@ -252,7 +252,8 @@ private Character getMenuButton(Scanner sc){
 	  
 	   try {
 	   if(sc.hasNext()) {
-		   inpStr = sc.next();	        		   
+		   //inpStr = sc.next();	
+		   inpStr = sc.nextLine(); //for whole line reading including space-
 	   } 
 	   } catch (Exception e) { } // any exception
 	    	   		    
@@ -269,13 +270,14 @@ private String getText(Scanner sc){
 while(text.length() == 0) {
 	try {
     if(sc.hasNext()) {
-    	text = sc.nextLine();						
-    } 
+    	text = sc.nextLine();
+    }   					    
     } catch (Exception e) { } // any exception  
 }
 
-return text;
-}
+	
+		return text;
+	}
 
 private LocalDate getDate(Scanner sc) { 
  

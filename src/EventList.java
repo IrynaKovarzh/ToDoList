@@ -130,5 +130,23 @@ public class EventList {
 				}					
 			}
 			}
-								
+						
+		public void findItemByTitle(String title) {
+		
+			title.trim();
+			String t = title.toLowerCase();
+			boolean hasFound = false;
+			Iterator<Event> it = eventList.iterator();
+			while (it.hasNext()) {
+				Event item = it.next();
+				if(item.getTitle().toLowerCase().contains(t)){				
+					System.out.println(item);
+					hasFound = true;
+				}
+			}
+			if (!hasFound) {
+					System.out.println("None of such plans");
+			}				
+
+		}	
 }
