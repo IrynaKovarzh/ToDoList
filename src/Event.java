@@ -7,6 +7,7 @@ public class Event {
 	private int id;
 	private String title;
 	private LocalDate deadLineDate;
+	private Status status;
 	//private String description;
 	
 	public Event(String title, LocalDate deadLineDate) {
