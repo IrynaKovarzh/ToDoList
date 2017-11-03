@@ -168,27 +168,21 @@ public class ToDoListApp {
 		Status newStatus = null;
 		while (newStatus == null) {
 			System.out.println("Input/Edit the status of the plan (1: DONE; 2:TODO; 3:MAYBE ):");
-			try {
-				if (sc.hasNext()) {
-					int iStatus = Integer.parseInt(sc.nextLine());
-					switch (iStatus) {
-					case 1:
-						newStatus = Status.DONE;
-						break;
-					case 2:
-						newStatus = Status.TODO;
-						break;
-					case 3:
-						newStatus = Status.MAYBE;
-						break;
-					default:
-						newStatus = null;
-						break;
-					}
-				}
-			} catch (Exception e) {
-
-			} // any exception
+			int iStatus = getNumber(sc);
+			switch (iStatus) {
+			case 1:
+				newStatus = Status.DONE;
+				break;
+			case 2:
+				newStatus = Status.TODO;
+				break;
+			case 3:
+				newStatus = Status.MAYBE;
+				break;
+			default:
+				newStatus = null;
+				break;
+			}
 		}
 
 		return newStatus;
