@@ -31,6 +31,11 @@ public class ToDoListApp {
 				// edit
 				editEvent(sc);
 				break;
+			case 'B':
+				// chang the event's status
+				changeStatus(sc);
+				break;				
+				
 			case 'H':
 				toPrintMenu();
 				break;
@@ -86,8 +91,11 @@ public class ToDoListApp {
 		System.out.println("<A> - to add an item");
 		System.out.println("<D> - to deleate an item");
 		System.out.println("<E> - to edit menu");
+		System.out.println("<B> - to change the status");
+		
+		System.out.println("<R> - to remove events of expired date ");
 
-		System.out.println("<C> - to check expired date");
+		System.out.println("<C> - to check events of expired date");
 		System.out.println("<F> - to find an event");
 		System.out.println("<I> - to find an event, by ID number");
 
@@ -158,13 +166,38 @@ public class ToDoListApp {
 		Status status = event.getStatus();
 		System.out.println(status);
 
-		Status newStatus = changeStatus(sc);
+		Status newStatus = getChangeStatus(sc);
 		event.setStatus(newStatus);
 
 //		eventList.editEvent(id, new Event(title, date));
 	}
+	
+	private void changeStatus(Scanner sc) {
+		System.out.println();
+		System.out.println("Change Event's Status");
 
-	private Status changeStatus(Scanner sc) {
+		System.out.println("Input the id-number:");
+		int id = getNumber(sc);
+
+		// to find the event
+		Event event = eventList.getEventById(id);
+		if (event == null) {
+			System.out.println();
+			System.out.println("There is no event with this id.");
+			return;
+		}
+		
+		Status status = event.getStatus();
+		System.out.println(status);
+
+		Status newStatus = getChangeStatus(sc);
+		event.setStatus(newStatus);			
+		
+		System.out.println(event);
+		System.out.println("The event have changed succesfully!");
+	}
+
+	private Status getChangeStatus(Scanner sc) {
 		Status newStatus = null;
 		while (newStatus == null) {
 			System.out.println("Input/Edit the status of the plan (1: DONE; 2:TODO; 3:MAYBE ):");
