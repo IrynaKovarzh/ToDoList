@@ -46,7 +46,6 @@ public class ToDoListApp {
 	            	// find all by title, contains 
             	findAllByTitle(sc); 
             		break;
-
 	            case 'I' : 
 	            	  // find an item, by id 
 	            	findById(sc);
@@ -55,6 +54,10 @@ public class ToDoListApp {
 	          	  // to sort
 	            	sortEventList(sc);
 	                   break;
+	            case 'X' : 
+		          	  // to sort
+	            	EventListContainer.toSaveXML(eventList);
+		                   break;       
 	            case 'Q' : 
 	            	newAction = false;
 	            	System.out.println();
@@ -74,16 +77,23 @@ public class ToDoListApp {
 		
 		private void toPrintMenu() {
 			System.out.println ("MENU:");
+			
 			System.out.println ("<H> - to print menu");
-			System.out.println ("<Q> - to quit");
-			System.out.println ("<R> - to read the list");
+			
+			System.out.println ("<P> - to print the list");
+			System.out.println ("<X> - to save in an XML faile");
+			
 			System.out.println ("<A> - to add an item");
 			System.out.println ("<D> - to deleate an item");			
 			System.out.println ("<E> - to edit menu");
+			
 			System.out.println ("<C> - to check expired date");
 			System.out.println ("<F> - to find an event");
 			System.out.println ("<I> - to find an event, by ID number");
+			
 			System.out.println ("<S> - to sort");
+			
+			System.out.println ("<Q> - to quit");
 	        // ...
 		}
 		
