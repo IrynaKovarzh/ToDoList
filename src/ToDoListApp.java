@@ -32,7 +32,7 @@ public class ToDoListApp {
 				editEvent(sc);
 				break;
 			case 'B':
-				// chang the event's status
+				// change the event's status
 				changeStatus(sc);
 				break;				
 				
@@ -370,11 +370,9 @@ public class ToDoListApp {
 
 		int id = 0;
 		while (id == 0) {
-
-			try {
-				if (sc.hasNextLine()) {
-					Character ch = sc.next().toCharArray()[0];
-					id = Character.getNumericValue(ch);
+			try {				
+				 if (sc.hasNextLine()) {
+					   id = Integer.parseInt(sc.nextLine());						
 				}
 			} catch (Exception e) {
 			} // any exception
