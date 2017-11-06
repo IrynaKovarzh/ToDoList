@@ -115,7 +115,7 @@ public class ToDoListApp {
 		System.out.println();
 		System.out.println("ADDING");
 
-		System.out.println("Input the title of the plan:");
+		System.out.println("Input the title:");
 		String title = getText(sc);
 
 		LocalDate date = getDate(sc);
@@ -158,7 +158,7 @@ public class ToDoListApp {
 		String title = event.getTitle();
 		System.out.println(title);
 
-		System.out.println("Input/Edit the title of the plan:");
+		System.out.println("Input/Edit the title:");
 		title = getText(sc);
 		event.setTitle(title);
 
@@ -257,26 +257,12 @@ public class ToDoListApp {
 			Collections.sort(sortedList, 
 				(s1, s2) ->
 					 s1.getTitle().compareToIgnoreCase(s2.getTitle()));				
-			/*
-			Collections.sort(sortedList, new Comparator<Event>() {
-				public int compare(Event ev1, Event ev2) {
-					return ev1.getTitle().compareToIgnoreCase(ev2.getTitle());
-				}
-			});
-			*/
 			break;
 		case 'D':
 			// by date			
 			Collections.sort(sortedList, 
 					(s1, s2) ->			
             s1.getLocalDeadLineDate().compareTo(s2.getLocalDeadLineDate()));						
-			/*
-			Collections.sort(sortedList, new Comparator<Event>() {
-				public int compare(Event ev1, Event ev2) {
-					return ev1.getLocalDeadLineDate().compareTo(ev2.getLocalDeadLineDate());
-				}
-			});
-			*/
 			break;
 		}
 
@@ -295,7 +281,6 @@ public class ToDoListApp {
 		// to find the event
 	    Event event = eventList.getEventById(id);
 		if (event == null) {
-			System.out.println();
 			System.out.println("There is no event with this id.");
 			return;
 		}
@@ -332,6 +317,8 @@ public class ToDoListApp {
 				inpStr = sc.nextLine(); // for whole line reading including space-
 			}
 		} catch (Exception e) {
+			System.out.println(">> Check the input and try again");
+			System.out.println("MenuButton:");
 		} // any exception
 
 		if (inpStr != null && inpStr.length() != 0) {
@@ -350,9 +337,10 @@ public class ToDoListApp {
 					text = sc.nextLine();
 				}
 			} catch (Exception e) {
+				System.out.println(">> Check the input and try again");
+				System.out.println("Input the text:");
 			} // any exception
 		}
-
 		return text;
 	}
 
@@ -372,9 +360,9 @@ public class ToDoListApp {
 					date = LocalDate.parse(dateStr, formatter);
 				}
 			} catch (Exception e) {
+				System.out.println(">> Check the input and try again");
 			} // any exception
 		}
-
 		return date;
 	}
 
@@ -387,6 +375,8 @@ public class ToDoListApp {
 					   id = Integer.parseInt(sc.nextLine());						
 				}
 			} catch (Exception e) {
+				System.out.println(">> Check the input and try again");
+				System.out.println("Input the number:");
 			} // any exception
 
 		}
