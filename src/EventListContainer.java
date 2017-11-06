@@ -14,8 +14,8 @@ public class EventListContainer {
 			System.out.println(event);		
 		}
 	}
-	
-	public static void toSaveXML(EventCollection eventList) {	
+
+	public static void toSaveXML(EventList eventList) {	
 	                    try {
 	                    	XmlIO.saveObject("todolist.xml", eventList);	                    
 	                    } catch (IOException ex) {
@@ -23,11 +23,11 @@ public class EventListContainer {
 	                    }
 		}
 	
-	public static EventCollection toLoadFromXML() {	
+	public static EventList toLoadFromXML() {	
 	       // Loading with XmlIO, in this case the file might be missing.
-		EventCollection todolist = new EventCollection();
+		EventList todolist = new EventList();
         try {
-        	todolist = XmlIO.loadObject("todolist.xml", EventCollection.class);
+        	todolist = XmlIO.loadObject("todolist.xml", EventList.class);
         } catch (IOException ex) {
             System.out.println("Could not load todolist.xml");
         }

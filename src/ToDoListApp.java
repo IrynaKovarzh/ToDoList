@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ToDoListApp {
 	
-	private static EventList eventList = new EventList();
+	private EventList eventList = new EventList();
 
 	public void run() {
 
@@ -61,9 +61,7 @@ public class ToDoListApp {
 				break;
 			case 'X' : 
 	          	  // to save in XML
-        EventCollection eventCollection = new EventCollection();
-        eventCollection.setEventList(eventList.getEventList());      
-			EventListContainer.toSaveXML(eventCollection);			
+				EventListContainer.toSaveXML(eventList);	
 	                   break;  
 		/*	case 'T' : 
 	          	  // to save in XML
