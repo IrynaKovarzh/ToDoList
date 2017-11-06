@@ -311,20 +311,25 @@ public class ToDoListApp {
 		String inpStr = "";
 		System.out.println();
 		System.out.println("MenuButton:");
-
+		
+		boolean isButton = false;
+		while (!isButton) {
 		try {
 			if (sc.hasNext()) {				
 				inpStr = sc.nextLine(); // for whole line reading including space-
-			}
-		} catch (Exception e) {
-			System.out.println(">> Check the input and try again");
-			System.out.println("MenuButton:");
+			}			
+			if (inpStr != null && inpStr.length() == 1) {
+				menuButton = inpStr.toUpperCase().charAt(0);
+				isButton = true;
+			}			
+		} catch (Exception e) {		
 		} // any exception
-
-		if (inpStr != null && inpStr.length() != 0) {
-			menuButton = inpStr.toUpperCase().charAt(0);
+		 	
+		if (!isButton){
+			System.out.println(">> Check the input and try again");
+			System.out.println("Input a MenuButton:");
 		}
-
+	}
 		return menuButton;
 	}
 
@@ -338,7 +343,7 @@ public class ToDoListApp {
 				}
 			} catch (Exception e) {
 				System.out.println(">> Check the input and try again");
-				System.out.println("Input the text:");
+				System.out.println("Input text:");
 			} // any exception
 		}
 		return text;
@@ -376,7 +381,7 @@ public class ToDoListApp {
 				}
 			} catch (Exception e) {
 				System.out.println(">> Check the input and try again");
-				System.out.println("Input the number:");
+				System.out.println("Input a number:");
 			} // any exception
 
 		}
