@@ -64,7 +64,14 @@ public class ToDoListApp {
         EventCollection eventCollection = new EventCollection();
         eventCollection.setEventList(eventList.getEventList());      
 			EventListContainer.toSaveXML(eventCollection);			
-	                   break;       
+	                   break;  
+		/*	case 'T' : 
+	          	  // to save in XML
+      EventCollection eventCollection2 = EventListContainer.toLoadFromXML();	
+      eventList.setEventList(eventCollection2.getEventList()); 
+      //eventCollection.setEventList(eventList.getEventList());      
+		//	EventListContainer.toSaveXML(eventCollection);			
+	                   break; */     
 			case 'Q':
 				newAction = false;
 				System.out.println();
@@ -89,6 +96,7 @@ public class ToDoListApp {
 		
 		System.out.println ("<P> - to print the list");
 		System.out.println ("<X> - to save in an XML faile");
+	//	System.out.println ("<T> - to load from an XML faile");
 		
 		System.out.println ("<A> - to add an item");
 		System.out.println ("<D> - to deleate an item");			

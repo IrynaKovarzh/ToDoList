@@ -10,6 +10,10 @@ public class EventList {
 			return eventList;
 		}
 	
+	public void setEventList(List<Event> eventList) {	
+	 this.eventList = eventList;
+	}
+	
 	public void printFromIryna() {
 		System.out.println("Hello");
 	}

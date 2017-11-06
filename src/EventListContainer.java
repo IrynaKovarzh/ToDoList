@@ -17,10 +17,21 @@ public class EventListContainer {
 	
 	public static void toSaveXML(EventCollection eventList) {	
 	                    try {
-	                        XmlIO.saveObject("todolist.xml", eventList);	                    
+	                    	XmlIO.saveObject("todolist.xml", eventList);	                    
 	                    } catch (IOException ex) {
 	                        Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
 	                    }
 		}
+	
+	public static EventCollection toLoadFromXML() {	
+	       // Loading with XmlIO, in this case the file might be missing.
+		EventCollection todolist = new EventCollection();
+        try {
+        	todolist = XmlIO.loadObject("todolist.xml", EventCollection.class);
+        } catch (IOException ex) {
+            System.out.println("Could not load todolist.xml");
+        }
+        return todolist;
+}
 	
 }
