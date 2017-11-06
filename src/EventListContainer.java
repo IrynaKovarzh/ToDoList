@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.*;
 
 public class EventListContainer {
 
@@ -12,4 +14,13 @@ public class EventListContainer {
 			System.out.println(event);		
 		}
 	}
+	
+	public static void toSaveXML(EventCollection eventList) {	
+	                    try {
+	                        XmlIO.saveObject("todolist.xml", eventList);	                    
+	                    } catch (IOException ex) {
+	                        Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
+	                    }
+		}
+	
 }

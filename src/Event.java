@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class Event {
 
@@ -6,7 +7,10 @@ public class Event {
 	
 	private int id;
 	private String title;
+	
+	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	private LocalDate deadLineDate;
+	
 	private Status status;
 	//private String description;
 	
@@ -17,12 +21,12 @@ public class Event {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-
+	
 	public void setTitle(String title) {
 		this.title = title;
-	}
+	}	
 
-	public void setDeadLineDate(LocalDate deadLineDate) {
+	public void setLocalDeadLineDate(LocalDate deadLineDate) {
 		this.deadLineDate = deadLineDate;
 	}
 
@@ -60,20 +64,7 @@ public class Event {
 		return title;
 	}
 
-	/*
-	private void setTitle(String title) {
-		this.title = title;
-	}
-	*/
-
-	public LocalDate getDeadLineDate() {
+	public LocalDate getLocalDeadLineDate() {
 		return deadLineDate;
-	}
-
-	/*
-	private void setDeadLineDate(LocalDate deadline) {
-		this.deadLineDate = deadline;
-	}
-	*/
-	
+	}	
 }

@@ -3,8 +3,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ToDoListApp {
-
-	private EventList eventList = new EventList();
+	
+	private static EventList eventList = new EventList();
 
 	public void run() {
 
@@ -40,7 +40,7 @@ public class ToDoListApp {
 				toPrintMenu();
 				break;
 			case 'C':
-				// check deadline
+				// check deadline				
 				eventList.getAllIsExpired();
 				break;
 			case 'R':
@@ -59,10 +59,12 @@ public class ToDoListApp {
 				// to sort
 				sortEventList(sc);
 				break;
-			case 'X':
-				// to sort
-				// EventListContainer.toSaveXML(eventList);
-				break;
+			case 'X' : 
+	          	  // to save in XML
+        EventCollection eventCollection = new EventCollection();
+        eventCollection.setEventList(eventList.getEventList());      
+			EventListContainer.toSaveXML(eventCollection);			
+	                   break;       
 			case 'Q':
 				newAction = false;
 				System.out.println();
@@ -81,28 +83,25 @@ public class ToDoListApp {
 	}
 
 	private void toPrintMenu() {
-		System.out.println("MENU:");
-
-		System.out.println("<H> - to print menu");
-
-		System.out.println("<P> - to print the list");
-		System.out.println("<X> - to save in an XML faile");
-
-		System.out.println("<A> - to add an item");
-		System.out.println("<D> - to deleate an item");
-		System.out.println("<E> - to edit menu");
-		System.out.println("<B> - to change the status");
+		System.out.println ("MENU:");
 		
-		System.out.println("<R> - to remove events of expired date ");
-
-		System.out.println("<C> - to check events of expired date");
-		System.out.println("<F> - to find an event");
-		System.out.println("<I> - to find an event, by ID number");
-
-		System.out.println("<S> - to sort");
-
-		System.out.println("<Q> - to quit");
-		// ...
+		System.out.println ("<H> - to print menu");
+		
+		System.out.println ("<P> - to print the list");
+		System.out.println ("<X> - to save in an XML faile");
+		
+		System.out.println ("<A> - to add an item");
+		System.out.println ("<D> - to deleate an item");			
+		System.out.println ("<E> - to edit menu");
+		
+		System.out.println ("<C> - to check expired date");
+		System.out.println ("<F> - to find an event");
+		System.out.println ("<I> - to find an event, by ID number");
+		
+		System.out.println ("<S> - to sort");
+		
+		System.out.println ("<Q> - to quit");
+        // ...
 	}
 
 	private void addEvent(Scanner sc) {
@@ -117,9 +116,9 @@ public class ToDoListApp {
 
 		eventList.addEvent(new Event(title, date));
 	}
-
+	
 	private void printList() {
-		EventListContainer.toPrintList(eventList.getList());
+		EventListContainer.toPrintList(eventList.getEventList());		
 	}
 
 	private void deleteEvent(Scanner sc) {
@@ -130,7 +129,7 @@ public class ToDoListApp {
 		System.out.println("Input the number:");
 		int id = getNumber(sc);
 
-		eventList.deleteEvent(id);
+		eventList.deleteEvent(id);		
 	}
 
 	private void editEvent(Scanner sc) {
@@ -157,10 +156,10 @@ public class ToDoListApp {
 		title = getText(sc);
 		event.setTitle(title);
 
-		String dateStr = event.getDeadLineDate().toString();
+		String dateStr = event.getLocalDeadLineDate().toString();
 		System.out.println(dateStr);
 		LocalDate date = getDate(sc);
-		event.setDeadLineDate(date);
+		event.setLocalDeadLineDate(date);
 		
 		
 		Status status = event.getStatus();
@@ -168,8 +167,6 @@ public class ToDoListApp {
 
 		Status newStatus = getChangeStatus(sc);
 		event.setStatus(newStatus);
-
-//		eventList.editEvent(id, new Event(title, date));
 	}
 	
 	private void changeStatus(Scanner sc) {
@@ -180,7 +177,7 @@ public class ToDoListApp {
 		int id = getNumber(sc);
 
 		// to find the event
-		Event event = eventList.getEventById(id);
+		Event event = eventList.getEventById(id);		
 		if (event == null) {
 			System.out.println();
 			System.out.println("There is no event with this id.");
@@ -246,8 +243,8 @@ public class ToDoListApp {
 
 		toPrintSubMenuSort();
 		Character menuButton = getSubMenuSortButton(sc);
-
-		List<Event> sortedList = eventList.getList();
+	
+		List<Event> sortedList = eventList.getEventList();
 		switch (menuButton) {
 		case 'T':
 			// by title
@@ -261,7 +258,7 @@ public class ToDoListApp {
 			// by date
 			Collections.sort(sortedList, new Comparator<Event>() {
 				public int compare(Event ev1, Event ev2) {
-					return ev1.getDeadLineDate().compareTo(ev2.getDeadLineDate());
+					return ev1.getLocalDeadLineDate().compareTo(ev2.getLocalDeadLineDate());
 				}
 			});
 			break;
@@ -280,7 +277,7 @@ public class ToDoListApp {
 
 		System.out.println();
 		// to find the event
-		Event event = eventList.getEventById(id);
+	    Event event = eventList.getEventById(id);
 		if (event == null) {
 			System.out.println();
 			System.out.println("There is no event with this id.");
@@ -296,7 +293,7 @@ public class ToDoListApp {
 
 		System.out.println("Input text");
 		String searchText = getText(sc);
-
+		
 		List<Event> resList = eventList.getAllEventByTitle(searchText);
 
 		if (!resList.isEmpty()) {
@@ -315,8 +312,7 @@ public class ToDoListApp {
 		System.out.println("MenuButton:");
 
 		try {
-			if (sc.hasNext()) {
-				// inpStr = sc.next();
+			if (sc.hasNext()) {				
 				inpStr = sc.nextLine(); // for whole line reading including space-
 			}
 		} catch (Exception e) {

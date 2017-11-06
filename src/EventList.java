@@ -1,29 +1,19 @@
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class EventList {
-
-	private static List<Event> eventList = new ArrayList<Event>();
-
-	/*
-	 * public void toPrint() { toPrintList(eventList); }
-	 */
-
+public class EventList {	
+	private List<Event> eventList = new ArrayList<Event>();
+		
+	public List<Event> getEventList() {	
+			return eventList;
+		}
+	
 	public void printFromIryna() {
 		System.out.println("Hello");
 	}
-
-	/*
-	 * public static void toPrintList(List<Event> eventList) { System.out.println();
-	 * System.out.println("ToDoList"); System.out.println("========");
-	 * Iterator<Event> it = eventList.iterator(); while(it.hasNext()) { Event event
-	 * = it.next(); System.out.println(event); } }
-	 */
-
-	public List<Event> getList() {
-		return eventList;
-	}
-
+	
 	public void addEvent(Event event) {
 		eventList.add(event);
 	}
@@ -33,18 +23,13 @@ public class EventList {
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext() && !hasRemoved) {
 			Event event = it.next();
-			// System.out.println(tmpDate);
 			if (event.getId() == id) {
 				it.remove();
 				hasRemoved = true;
 			}
 		}
 	}
-
-	/*
-	 * public void deleteEvent(Event event) { eventList.remove(event); }
-	 */
-
+	
 	private int getIndexEventById(int id) {
 		int index = -1;
 		Iterator<Event> it = eventList.iterator();
@@ -52,7 +37,6 @@ public class EventList {
 			Event event = it.next();
 			if (event.getId() == id)
 				return eventList.indexOf(event);
-			// System.out.println(event);
 		}
 		return index;
 	}
@@ -85,12 +69,7 @@ public class EventList {
 		if (index >= 0)
 			eventList.set(index, event);
 	}
-
-	/*
-	 * public void editEvent(Event elementOrig, Event elementNew) { int index =
-	 * eventList.indexOf(elementOrig); eventList.set(index, elementNew); }
-	 */
-
+	
 	public List<Event> getAllBeforeDate(LocalDate Date) {
 		System.out.println("Not implemented yet");
 		return null;
@@ -104,7 +83,7 @@ public class EventList {
 		int inumber = 0;
 		while (it.hasNext()) {
 			Event event = it.next();
-			if (event.getDeadLineDate().isBefore(today) || event.getStatus() == Status.DONE ) {
+			if (event.getLocalDeadLineDate().isBefore(today) || event.getStatus() == Status.DONE ) {
 				it.remove();
 				System.out.println(event + " is deleted succesfully!");
 				inumber ++;
@@ -120,7 +99,7 @@ public class EventList {
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
 			Event event = it.next();
-			if (event.getDeadLineDate().isBefore(today)  || event.getStatus() == Status.DONE ) {
+			if (event.getLocalDeadLineDate().isBefore(today)  || event.getStatus() == Status.DONE ) {
 				System.out.println(event);
 			}
 		}
