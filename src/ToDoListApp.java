@@ -10,10 +10,12 @@ public class ToDoListApp {
 
 		Scanner sc = new Scanner(System.in);
 
+		toPrintMenu();
+		
 		boolean newAction = true;
-
-		Character menuButton = 'H';
+		
 		while (newAction) {
+			Character menuButton = getMenuButton(sc);			
 			switch (menuButton) {
 			case 'P':
 				// to read the list
@@ -80,9 +82,7 @@ public class ToDoListApp {
 				break;
 			}
 
-			if (newAction) {
-				menuButton = getMenuButton(sc);
-			}
+
 		}
 		sc.close();
 	}
@@ -94,7 +94,7 @@ public class ToDoListApp {
 		
 		System.out.println ("<P> - to print the list");
 		System.out.println ("<X> - to save in an XML faile");
-	//	System.out.println ("<T> - to load from an XML faile");
+	//	System.out.println ("<T> - to load from an XML file");
 		
 		System.out.println ("<A> - to add an item");
 		System.out.println ("<D> - to deleate an item");			
