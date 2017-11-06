@@ -100,6 +100,8 @@ public class ToDoListApp {
 		System.out.println ("<D> - to deleate an item");			
 		System.out.println ("<E> - to edit menu");
 		
+		System.out.println ("<B> - to change the status");
+		
 		System.out.println ("<C> - to check expired date");
 		System.out.println ("<F> - to find an event");
 		System.out.println ("<I> - to find an event, by ID number");
@@ -157,8 +159,7 @@ public class ToDoListApp {
 		// to ask what to change
 		String title = event.getTitle();
 		System.out.println(title);
-
-		System.out.println("Input/Edit the title:");
+		System.out.println("Input/Edit new title:");
 		title = getText(sc);
 		event.setTitle(title);
 
@@ -166,23 +167,22 @@ public class ToDoListApp {
 		System.out.println(dateStr);
 		LocalDate date = getDate(sc);
 		event.setLocalDeadLineDate(date);
-		
-		
+				
 		Status status = event.getStatus();
 		System.out.println(status);
-
-		Status newStatus = getChangeStatus(sc);
+		Status newStatus = getStatus(sc);
 		event.setStatus(newStatus);
 	}
 	
 	private void changeStatus(Scanner sc) {
 		System.out.println();
-		System.out.println("Change Event's Status");
+		System.out.println("CHANGING STATUS");
 
 		System.out.println("Input the id-number:");
 		int id = getNumber(sc);
 
 		// to find the event
+		
 		Event event = eventList.getEventById(id);		
 		if (event == null) {
 			System.out.println();
@@ -193,37 +193,10 @@ public class ToDoListApp {
 		Status status = event.getStatus();
 		System.out.println(status);
 
-		Status newStatus = getChangeStatus(sc);
+		Status newStatus = getStatus(sc);
 		event.setStatus(newStatus);			
-		
-		System.out.println(event);
-		System.out.println("The event have changed succesfully!");
 	}
-
-	private Status getChangeStatus(Scanner sc) {
-		Status newStatus = null;
-		while (newStatus == null) {
-			System.out.println("Input/Edit the status of the plan (1: DONE; 2:TODO; 3:MAYBE ):");
-			int iStatus = getNumber(sc);
-			switch (iStatus) {
-			case 1:
-				newStatus = Status.DONE;
-				break;
-			case 2:
-				newStatus = Status.TODO;
-				break;
-			case 3:
-				newStatus = Status.MAYBE;
-				break;
-			default:
-				newStatus = null;
-				break;
-			}
-		}
-
-		return newStatus;
-	}
-
+	
 	private void toPrintSubMenuSort() {
 		System.out.println("Ways to sort:");
 		System.out.println("<D> - by date");
@@ -305,6 +278,30 @@ public class ToDoListApp {
 		}
 	}
 
+	private Status getStatus(Scanner sc) {
+		Status newStatus = null;
+		while (newStatus == null) {
+			System.out.println("Input/Edit the status of the plan (1:DONE; 2:TODO; 3:MAYBE ):");			
+			int iStatus = getNumber(sc);
+			switch (iStatus) {
+			case 1:
+				newStatus = Status.DONE;
+				break;
+			case 2:
+				newStatus = Status.TODO;
+				break;
+			case 3:
+				newStatus = Status.MAYBE;
+				break;
+			default:			
+				System.out.println(">> Check the input and try again");
+				break;
+			}
+		}
+
+		return newStatus;
+	}
+	
 	private Character getMenuButton(Scanner sc) {
 		Character menuButton = 'L'; //
 
