@@ -13,11 +13,7 @@ public class EventList {
 	public void setEventList(List<Event> eventList) {	
 	 this.eventList = eventList;
 	}
-	
-	public void printFromIryna() {
-		System.out.println("Hello");
-	}
-	
+		
 	public void addEvent(Event event) {
 		eventList.add(event);
 	}
@@ -88,12 +84,11 @@ public class EventList {
 		while (it.hasNext()) {
 			Event event = it.next();
 			if (event.getLocalDeadLineDate().isBefore(today) || event.getStatus() == Status.DONE ) {
-				it.remove();
-				System.out.println(event + " is deleted succesfully!");
+				it.remove();			
 				inumber ++;
 			}
 		}
-		System.out.println("Remove " + inumber + " event(s) of expired date or done succesfully!");
+		System.out.println(inumber + " event(s) have been deleted.");
 	}
 
 	public void getAllIsExpired() { // for today
@@ -103,7 +98,7 @@ public class EventList {
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
 			Event event = it.next();
-			if (event.getLocalDeadLineDate().isBefore(today)  || event.getStatus() == Status.DONE ) {
+			if (event.getLocalDeadLineDate().isBefore(today)  && event.getStatus() != Status.DONE ) {
 				System.out.println(event);
 			}
 		}
