@@ -256,19 +256,29 @@ public class ToDoListApp {
 		switch (menuButton) {
 		case 'T':
 			// by title
+			Collections.sort(sortedList, 
+				(Event ev1, Event ev2) ->
+					 ev1.getTitle().compareToIgnoreCase(ev2.getTitle()));				
+			/*
 			Collections.sort(sortedList, new Comparator<Event>() {
 				public int compare(Event ev1, Event ev2) {
 					return ev1.getTitle().compareToIgnoreCase(ev2.getTitle());
 				}
 			});
+			*/
 			break;
 		case 'D':
-			// by date
+			// by date			
+			Collections.sort(sortedList, 
+					(Event ev1, Event ev2) ->			
+            ev1.getLocalDeadLineDate().compareTo(ev2.getLocalDeadLineDate()));						
+			/*
 			Collections.sort(sortedList, new Comparator<Event>() {
 				public int compare(Event ev1, Event ev2) {
 					return ev1.getLocalDeadLineDate().compareTo(ev2.getLocalDeadLineDate());
 				}
 			});
+			*/
 			break;
 		}
 
