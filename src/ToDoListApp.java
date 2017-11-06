@@ -257,8 +257,8 @@ public class ToDoListApp {
 		case 'T':
 			// by title
 			Collections.sort(sortedList, 
-				(Event ev1, Event ev2) ->
-					 ev1.getTitle().compareToIgnoreCase(ev2.getTitle()));				
+				(s1, s2) ->
+					 s1.getTitle().compareToIgnoreCase(s2.getTitle()));				
 			/*
 			Collections.sort(sortedList, new Comparator<Event>() {
 				public int compare(Event ev1, Event ev2) {
@@ -270,8 +270,8 @@ public class ToDoListApp {
 		case 'D':
 			// by date			
 			Collections.sort(sortedList, 
-					(Event ev1, Event ev2) ->			
-            ev1.getLocalDeadLineDate().compareTo(ev2.getLocalDeadLineDate()));						
+					(s1, s2) ->			
+            s1.getLocalDeadLineDate().compareTo(s2.getLocalDeadLineDate()));						
 			/*
 			Collections.sort(sortedList, new Comparator<Event>() {
 				public int compare(Event ev1, Event ev2) {
@@ -348,7 +348,7 @@ public class ToDoListApp {
 		String text = "";
 		while (text.length() == 0) {
 			try {
-				if (sc.hasNext()) {
+				if (sc.hasNextLine()) {
 					text = sc.nextLine();
 				}
 			} catch (Exception e) {
@@ -369,8 +369,8 @@ public class ToDoListApp {
 			String dateStr = "";
 
 			try {
-				if (sc.hasNext()) {
-					dateStr = sc.next();
+				if (sc.hasNextLine()) {
+					dateStr = sc.nextLine();
 					date = LocalDate.parse(dateStr, formatter);
 				}
 			} catch (Exception e) {
