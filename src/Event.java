@@ -10,6 +10,8 @@ public class Event {
 	
 	private int id;
 	private String title;
+	
+	
 	private LocalDate deadLineDate;
 	private Status status;
 	//private String description;
@@ -22,12 +24,10 @@ public class Event {
 		this.status = status;
 	}
 	
-	@XmlElement
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
-	@XmlElement
 	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	public void setDeadLineDate(LocalDate deadLineDate) {
 		this.deadLineDate = deadLineDate;
@@ -54,7 +54,6 @@ public class Event {
 		return id;
 	}
 	
-	@XmlElement
 	public void setId(int id) {
 		this.id = id;
 	}
