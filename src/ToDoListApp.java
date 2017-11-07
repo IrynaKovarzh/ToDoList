@@ -16,75 +16,77 @@ public class ToDoListApp {
 		
 		while (newAction) {
 			Character menuButton = getMenuButton(sc);			
-			switch (menuButton) {
-			case 'P':
-				// to read the list
-				printList();
-				break;
-			case 'A':
-				// add
-				addEvent(sc);
-				break;
-			case 'D':
-				// delete by id
-				deleteEvent(sc);
-				break;
-			case 'E':
-				// edit
-				editEvent(sc);
-				break;
-			case 'B':
-				// change the event's status
-				changeStatus(sc);
-				break;				
-				
-			case 'H':
-				toPrintMenu();
-				break;
-			case 'C':
-				// check deadline				
-				eventList.getAllIsExpired();
-				break;
-			case 'R':
-				// remove all that are expired
-				eventList.removeAllDoneExpired();
-				break;
-			case 'F':
-				// find all by title, contains
-				findAllByTitle(sc);
-				break;
-			case 'I':
-				// find an item, by id
-				findById(sc);
-				break;
-			case 'S':
-				// to sort
-				sortEventList(sc);
-				break;
-			case 'X' : 
-	          	  // to save in XML
-				EventListContainer.toSaveXML(eventList);	
-	                   break;  
-		/*	case 'T' : 
-	          	  // to save in XML
-      EventCollection eventCollection2 = EventListContainer.toLoadFromXML();	
-      eventList.setEventList(eventCollection2.getEventList()); 
-      //eventCollection.setEventList(eventList.getEventList());      
-		//	EventListContainer.toSaveXML(eventCollection);			
-	                   break; */     
-			case 'Q':
-				newAction = false;
-				System.out.println();
-				System.out.println(".........");
-				break;
-			default:
-				// read again
-				break;
-			}
-
-
+			newAction = getExecution(sc, newAction, menuButton);
 		}
 		sc.close();
+	}
+
+	private boolean getExecution(Scanner sc, boolean newAction, Character menuButton) {
+		switch (menuButton) {
+		case 'P':
+			// to read the list
+			printList();
+			break;
+		case 'A':
+			// add
+			addEvent(sc);
+			break;
+		case 'D':
+			// delete by id
+			deleteEvent(sc);
+			break;
+		case 'E':
+			// edit
+			editEvent(sc);
+			break;
+		case 'B':
+			// change the event's status
+			changeStatus(sc);
+			break;							
+		case 'H':
+			toPrintMenu();
+			break;
+		case 'C':
+			// check deadline				
+			eventList.getAllIsExpired();
+			break;
+		case 'R':
+			// remove all that are expired
+			eventList.removeAllDoneExpired();
+			break;
+		case 'F':
+			// find all by title, contains
+			findAllByTitle(sc);
+			break;
+		case 'I':
+			// find an item, by id
+			findById(sc);
+			break;
+		case 'S':
+			// to sort
+			sortEventList(sc);
+			break;
+		case 'X' : 
+		  	  // to save in XML
+			EventListContainer.toSaveXML(eventList);	
+		           break;  
+/*	case 'T' : 
+		  	  // to save in XML
+     EventCollection eventCollection2 = EventListContainer.toLoadFromXML();	
+     eventList.setEventList(eventCollection2.getEventList()); 
+     //eventCollection.setEventList(eventList.getEventList());      
+//	EventListContainer.toSaveXML(eventCollection);			
+		           break; */     
+		case 'Q':
+			newAction = false;
+			System.out.println();
+			System.out.println(".........");
+			break;
+		default:
+			// read again
+			break;
+		}
+		return newAction;
 	}
 
 	private void toPrintMenu() {
