@@ -1,6 +1,9 @@
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ToDoListApp {
 	
@@ -68,15 +71,15 @@ public class ToDoListApp {
 			break;
 		case 'X' : 
 		  	  // to save in XML
-			EventListContainer.toSaveXML(eventList);	
-		           break;  
-/*	case 'T' : 
-		  	  // to save in XML
-     EventCollection eventCollection2 = EventListContainer.toLoadFromXML();	
-     eventList.setEventList(eventCollection2.getEventList()); 
-     //eventCollection.setEventList(eventList.getEventList());      
-//	EventListContainer.toSaveXML(eventCollection);			
-		           break; */     
+			saveObjsToXml();
+//			EventListContainer.toSaveXML(eventList);
+		    break;  
+		case 'T' : 
+			 // to Load in XML
+			loadObjsFromXml();
+//		     EventCollection eventCollection2 = EventListContainer.toLoadFromXML();	
+//		     eventList.setEventList(eventCollection2.getEventList()); 
+		     break;     
 		case 'Q':
 			newAction = false;
 			System.out.println();
@@ -165,10 +168,10 @@ public class ToDoListApp {
 		title = getText(sc);
 		event.setTitle(title);
 
-		String dateStr = event.getLocalDeadLineDate().toString();
+		String dateStr = event.getDeadLineDate().toString();
 		System.out.println(dateStr);
 		LocalDate date = getDate(sc);
-		event.setLocalDeadLineDate(date);
+		event.setDeadLineDate(date);
 				
 		Status status = event.getStatus();
 		System.out.println(status);
@@ -237,7 +240,7 @@ public class ToDoListApp {
 			// by date			
 			Collections.sort(sortedList, 
 					(s1, s2) ->			
-            s1.getLocalDeadLineDate().compareTo(s2.getLocalDeadLineDate()));						
+            s1.getDeadLineDate().compareTo(s2.getDeadLineDate()));						
 			break;
 		}
 
@@ -386,4 +389,40 @@ public class ToDoListApp {
 		}
 		return id;
 	}
+	
+	public void saveObjsToXml() {
+		// Using XmlIO to save an object to file, errors are unexpected (write protected
+		// files)
+		try {
+			XmlIO.saveObject("todolist.xml", eventList);
+			System.out.println("Save events successfully!");			
+		} catch (IOException ex) {
+			Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	}
+	
+	
+	public void loadObjsFromXml() {
+		// Using XmlIO to save an object to file, errors are unexpected (write protected
+		// files)		
+		EventList newEventList = new EventList();
+
+		try {
+			newEventList = XmlIO.loadObject("todolist.xml", EventList.class);
+			this.eventList = newEventList;
+			getLoadMaxId();
+			System.out.println("Load events successfully!");
+		} catch (IOException ex) {
+			Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	}
+	
+	private void getLoadMaxId() {
+		// to initNextIdNum
+		Event.initNextIdNum(eventList.getMaxIndex() + 1);
+	}
+	
+	
 }

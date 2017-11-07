@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class EventList {	
 	private List<Event> eventList = new ArrayList<Event>();
 		
@@ -83,7 +84,7 @@ public class EventList {
 		int inumber = 0;
 		while (it.hasNext()) {
 			Event event = it.next();
-			if (event.getLocalDeadLineDate().isBefore(today) || event.getStatus() == Status.DONE ) {
+			if (event.getDeadLineDate().isBefore(today) || event.getStatus() == Status.DONE ) {
 				it.remove();			
 				inumber ++;
 			}
@@ -98,7 +99,7 @@ public class EventList {
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
 			Event event = it.next();
-			if (event.getLocalDeadLineDate().isBefore(today)  && event.getStatus() != Status.DONE ) {
+			if (event.getDeadLineDate().isBefore(today)  && event.getStatus() != Status.DONE ) {
 				System.out.println(event);
 			}
 		}
@@ -122,4 +123,17 @@ public class EventList {
 		}
 
 	}
+	
+	public int getMaxIndex() {
+		int index = 0;
+		Iterator<Event> it = eventList.iterator();
+		while (it.hasNext()) {
+			Event event = it.next();
+			if (event.getId() > index)
+				index = event.getId();
+			// System.out.println(event);
+		}
+		return index;
+	}
+	
 }
