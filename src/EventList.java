@@ -7,8 +7,11 @@ import java.util.List;
 public class EventList {	
 	private List<Event> eventList = new ArrayList<Event>();
 		
-	public List<Event> getEventList() {	
-			return eventList;
+	public List<Event> getEventList() {			
+		// return eventList;				
+		List<Event> evlist = new ArrayList<Event>();
+		evlist.addAll(this.eventList);
+		return evlist;		
 		}
 	
 	public void setEventList(List<Event> eventList) {	
