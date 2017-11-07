@@ -40,7 +40,8 @@ public class EventListContainer {
 
 		try {
 			newEventList = XmlIO.loadObject("todolist.xml", EventList.class);
-			getMaxId(newEventList.getEventList());
+			setNextIdNum(newEventList.getEventList());
+			
 			System.out.println("Load events successfully!");
 		} catch (IOException ex) {
 			Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,7 +49,7 @@ public class EventListContainer {
 		return newEventList;
 	}	
 	
-	private static void getMaxId(List<Event> eventList) {
+	private static void setNextIdNum(List<Event> eventList) {
 		Event.initNextIdNum(getMaxIndex(eventList) + 1);
 	}
 	
