@@ -1,7 +1,9 @@
 import java.time.LocalDate;
 
-public interface ReadOnlyEvent {
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+public interface ReadOnlyEvent {
+	
 	Status getStatus();
 
 	int getId();

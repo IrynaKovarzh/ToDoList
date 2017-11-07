@@ -22,16 +22,44 @@ public class EventListContainer {
 	                        Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
 	                    }
 		}
+		
+	public static void saveObjsToXml(EventList eventList) {
+		// Using XmlIO to save an object to file, errors are unexpected (write protected
+		// files)
+		try {
+			XmlIO.saveObject("todolist.xml", eventList);
+			System.out.println("Save events successfully!");			
+		} catch (IOException ex) {
+			Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
+		}		
+	}
 	
-	public static EventList toLoadFromXML() {	
-	       // Loading with XmlIO, in this case the file might be missing.
-		EventList todolist = new EventList();
-        try {
-        	todolist = XmlIO.loadObject("todolist.xml", EventList.class);
-        } catch (IOException ex) {
-            System.out.println("Could not load todolist.xml");
-        }
-        return todolist;
-}
+	public static EventList loadObjsFromXml() {
+		// Using XmlIO to save an object to file, errors are unexpected (write protected files)		
+		EventList newEventList = new EventList();
+
+		try {
+			newEventList = XmlIO.loadObject("todolist.xml", EventList.class);
+			getMaxId(newEventList.getEventList());
+			System.out.println("Load events successfully!");
+		} catch (IOException ex) {
+			Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
+		}		
+		return newEventList;
+	}	
 	
+	private static void getMaxId(List<Event> eventList) {
+		Event.initNextIdNum(getMaxIndex(eventList) + 1);
+	}
+	
+	private static int getMaxIndex(List<Event> eventList) {
+		int index = 0;
+		Iterator<Event> it = eventList.iterator();
+		while (it.hasNext()) {
+			Event event = it.next();
+			if (event.getId() > index)
+				index = event.getId();
+		}
+		return index;
+	}
 }

@@ -8,9 +8,13 @@ import java.util.List;
 public class EventList {	
 	private List<Event> eventList = new ArrayList<Event>();
 		
-	public List<ReadOnlyEvent> getEventList() {					
+	public List<ReadOnlyEvent> getReadOnlyEventList() {					
 		return Collections.unmodifiableList(eventList);
 		}
+	
+	public List<Event> getEventList() {					
+	return this.eventList;
+	}
 	
 	public void setEventList(List<Event> eventList) {	
 	 this.eventList = eventList;
@@ -97,15 +101,12 @@ public class EventList {
 	public List<ReadOnlyEvent> getAllIsExpired() { // for today
 		LocalDate today = LocalDate.now();
 
-		//System.out.println("Expired");
-		
 		List<ReadOnlyEvent> resList = new ArrayList<ReadOnlyEvent>();
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
 			ReadOnlyEvent event = it.next();
 			if (event.getDeadLineDate().isBefore(today)  && event.getStatus() != Status.DONE ) {
 				resList.add(event);
-		//		System.out.println(event);
 			}
 		}
 		return resList;
@@ -127,19 +128,6 @@ public class EventList {
 		if (!hasFound) {
 			System.out.println("None of such plans");
 		}
-
-	}
-	
-	public int getMaxIndex() {
-		int index = 0;
-		Iterator<Event> it = eventList.iterator();
-		while (it.hasNext()) {
-			ReadOnlyEvent event = it.next();
-			if (event.getId() > index)
-				index = event.getId();
-			// System.out.println(event);
-		}
-		return index;
 	}
 	
 }

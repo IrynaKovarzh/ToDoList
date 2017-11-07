@@ -11,6 +11,7 @@ public class Event implements ReadOnlyEvent {
 	
 	private LocalDate deadLineDate;
 	private Status status;
+	
 	//private String description;
 	
 	/* (non-Javadoc)
