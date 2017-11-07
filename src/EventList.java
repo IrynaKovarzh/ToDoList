@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,9 +10,14 @@ public class EventList {
 		
 	public List<Event> getEventList() {			
 		// return eventList;				
+		
+		/*
 		List<Event> evlist = new ArrayList<Event>();
 		evlist.addAll(this.eventList);
-		return evlist;		
+		return evlist;
+		*/
+		
+		return Collections.unmodifiableList(eventList);
 		}
 	
 	public void setEventList(List<Event> eventList) {	
