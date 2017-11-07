@@ -1,10 +1,7 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-public class Event {
+public class Event implements ReadOnlyEvent {
 
 	private static int nextIdNum = 1;
 	
@@ -16,6 +13,10 @@ public class Event {
 	private Status status;
 	//private String description;
 	
+	/* (non-Javadoc)
+	 * @see ReadOnlyEvent#getStatus()
+	 */
+	@Override
 	public Status getStatus() {
 		return status;
 	}
@@ -50,6 +51,10 @@ public class Event {
 		this("", LocalDate.now().plusDays(1)); 
 	}
 
+	/* (non-Javadoc)
+	 * @see ReadOnlyEvent#getId()
+	 */
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -58,20 +63,31 @@ public class Event {
 		this.id = id;
 	}
 	
-	public void CopyIdFrom(Event onotherEvent) {
+	public void CopyIdFrom(ReadOnlyEvent onotherEvent) {
 	this.setId(onotherEvent.getId());
 	}
 	
+	/* (non-Javadoc)
+	 * @see ReadOnlyEvent#toString()
+	 */
 	@Override
 	public String toString() {
 		return "*" + id + " " + title + " [DL : " + deadLineDate + "  Status: " + status + "]"; //
 	}
 
+	/* (non-Javadoc)
+	 * @see ReadOnlyEvent#getTitle()
+	 */
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
 
+	/* (non-Javadoc)
+	 * @see ReadOnlyEvent#getDeadLineDate()
+	 */
+	@Override
 	public LocalDate getDeadLineDate() {
 		return deadLineDate;
 	}

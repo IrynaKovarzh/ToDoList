@@ -8,15 +8,7 @@ import java.util.List;
 public class EventList {	
 	private List<Event> eventList = new ArrayList<Event>();
 		
-	public List<Event> getEventList() {			
-		// return eventList;				
-		
-		/*
-		List<Event> evlist = new ArrayList<Event>();
-		evlist.addAll(this.eventList);
-		return evlist;
-		*/
-		
+	public List<ReadOnlyEvent> getEventList() {					
 		return Collections.unmodifiableList(eventList);
 		}
 	
@@ -32,57 +24,38 @@ public class EventList {
 		boolean hasRemoved = false;
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext() && !hasRemoved) {
-			Event event = it.next();
+			ReadOnlyEvent event = it.next();
 			if (event.getId() == id) {
 				it.remove();
 				hasRemoved = true;
 			}
 		}
 	}
-	
+		
 	private int getIndexEventById(int id) {
 		int index = -1;
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
-			Event event = it.next();
+			ReadOnlyEvent event = it.next();
 			if (event.getId() == id)
 				return eventList.indexOf(event);
 		}
 		return index;
-	}
+	}	
 
-	public Event getEventById(int id) {
+	public ReadOnlyEvent getReadOnlyEventById(int id) {
 		int index = getIndexEventById(id);
 		if (index < 0)
 			return null;
 		return eventList.get(index);
 	}
 
-	public List<Event> getAllEventByTitle(String title) {
-		List<Event> resList = new ArrayList<Event>();
-
-		String t = title.toLowerCase();
-		Iterator<Event> it = eventList.iterator();
-		while (it.hasNext()) {
-			Event item = it.next();
-			if (item.getTitle().toLowerCase().contains(t)) {
-				resList.add(item);
-			}
-		}
-
-		return resList;
-	}
-
-	public void editEvent(int id, Event event) {
-		int index = getIndexEventById(id);
-		event.CopyIdFrom(eventList.get(index));
-		if (index >= 0)
-			eventList.set(index, event);
-	}
 	
-	public List<Event> getAllBeforeDate(LocalDate Date) {
-		System.out.println("Not implemented yet");
-		return null;
+	public Event getEventById(int id) {
+		int index = getIndexEventById(id);
+		if (index < 0)
+			return null;
+		return eventList.get(index);
 	}
 
 	public void removeAllDoneExpired() { // for today
@@ -92,7 +65,7 @@ public class EventList {
 		
 		int inumber = 0;
 		while (it.hasNext()) {
-			Event event = it.next();
+			ReadOnlyEvent event = it.next();
 			if (event.getDeadLineDate().isBefore(today) || event.getStatus() == Status.DONE ) {
 				it.remove();			
 				inumber ++;
@@ -100,18 +73,42 @@ public class EventList {
 		}
 		System.out.println(inumber + " event(s) have been deleted.");
 	}
+	
+	public List<ReadOnlyEvent> getAllEventByTitle(String title) {
+		List<ReadOnlyEvent> resList = new ArrayList<ReadOnlyEvent>();
 
-	public void getAllIsExpired() { // for today
-		LocalDate today = LocalDate.now();
-
-		System.out.println("Expired");
+		String t = title.toLowerCase();
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
-			Event event = it.next();
-			if (event.getDeadLineDate().isBefore(today)  && event.getStatus() != Status.DONE ) {
-				System.out.println(event);
+			ReadOnlyEvent item = it.next();
+			if (item.getTitle().toLowerCase().contains(t)) {
+				resList.add(item);
 			}
 		}
+
+		return resList;
+	}
+		
+	public List<ReadOnlyEvent> getAllBeforeDate(LocalDate Date) {
+		System.out.println("Not implemented yet");
+		return null;
+	}
+
+	public List<ReadOnlyEvent> getAllIsExpired() { // for today
+		LocalDate today = LocalDate.now();
+
+		//System.out.println("Expired");
+		
+		List<ReadOnlyEvent> resList = new ArrayList<ReadOnlyEvent>();
+		Iterator<Event> it = eventList.iterator();
+		while (it.hasNext()) {
+			ReadOnlyEvent event = it.next();
+			if (event.getDeadLineDate().isBefore(today)  && event.getStatus() != Status.DONE ) {
+				resList.add(event);
+		//		System.out.println(event);
+			}
+		}
+		return resList;
 	}
 
 	public void findItemByTitle(String title) {
@@ -121,7 +118,7 @@ public class EventList {
 		boolean hasFound = false;
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
-			Event item = it.next();
+			ReadOnlyEvent item = it.next();
 			if (item.getTitle().toLowerCase().contains(t)) {
 				System.out.println(item);
 				hasFound = true;
@@ -137,7 +134,7 @@ public class EventList {
 		int index = 0;
 		Iterator<Event> it = eventList.iterator();
 		while (it.hasNext()) {
-			Event event = it.next();
+			ReadOnlyEvent event = it.next();
 			if (event.getId() > index)
 				index = event.getId();
 			// System.out.println(event);

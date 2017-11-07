@@ -4,13 +4,13 @@ import java.util.logging.*;
 
 public class EventListContainer {
 
-	public static void toPrintList(List<Event> eventList) {
+	public static void toPrintList(List<ReadOnlyEvent> eventList) {
 		System.out.println();
-		System.out.println("ToDoList");
-		System.out.println("========");
-		Iterator<Event> it = eventList.iterator();
+		System.out.println("Event List");
+		System.out.println("==========");
+		Iterator<ReadOnlyEvent> it = eventList.iterator();
 		while(it.hasNext()) {
-			Event event = it.next();
+			ReadOnlyEvent event = it.next();
 			System.out.println(event);		
 		}
 	}

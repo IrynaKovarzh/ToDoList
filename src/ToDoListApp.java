@@ -10,13 +10,11 @@ public class ToDoListApp {
 	private EventList eventList = new EventList();
 
 	public void run() {
-
 		Scanner sc = new Scanner(System.in);
 
 		toPrintMenu();
 		
-		boolean newAction = true;
-		
+		boolean newAction = true;		
 		while (newAction) {
 			Character menuButton = getMenuButton(sc);			
 			newAction = getExecution(sc, newAction, menuButton);
@@ -50,8 +48,8 @@ public class ToDoListApp {
 			toPrintMenu();
 			break;
 		case 'C':
-			// check deadline				
-			eventList.getAllIsExpired();
+			// check deadline	
+			EventListContainer.toPrintList(eventList.getAllIsExpired());				
 			break;
 		case 'R':
 			// remove all that are expired
@@ -99,7 +97,7 @@ public class ToDoListApp {
 		
 		System.out.println ("<P> - to print the list");
 		System.out.println ("<X> - to save in an XML faile");
-	//	System.out.println ("<T> - to load from an XML file");
+	    System.out.println ("<T> - to load from an XML file");
 		
 		System.out.println ("<A> - to add an item");
 		System.out.println ("<D> - to deleate an item");			
@@ -186,8 +184,7 @@ public class ToDoListApp {
 		System.out.println("Input the id-number:");
 		int id = getNumber(sc);
 
-		// to find the event
-		
+		// to find the event		
 		Event event = eventList.getEventById(id);		
 		if (event == null) {
 			System.out.println();
@@ -197,7 +194,7 @@ public class ToDoListApp {
 		
 		Status status = event.getStatus();
 		System.out.println(status);
-
+		
 		Status newStatus = getStatus(sc);
 		event.setStatus(newStatus);			
 	}
@@ -216,7 +213,6 @@ public class ToDoListApp {
 		while (ch != 'D' && ch != 'T') {
 			ch = getMenuButton(sc);
 		}
-
 		return ch;
 	}
 
@@ -228,7 +224,7 @@ public class ToDoListApp {
 		toPrintSubMenuSort();
 		Character menuButton = getSubMenuSortButton(sc);
 	
-		List<Event> sortedList = eventList.getEventList();
+		List<ReadOnlyEvent> sortedList = eventList.getEventList();
 		switch (menuButton) {
 		case 'T':
 			// by title
@@ -248,7 +244,6 @@ public class ToDoListApp {
 	}
 
 	private void findById(Scanner sc) {
-
 		System.out.println();
 		System.out.println("SEARCHING");
 
@@ -257,7 +252,7 @@ public class ToDoListApp {
 
 		System.out.println();
 		// to find the event
-	    Event event = eventList.getEventById(id);
+	    ReadOnlyEvent event = eventList.getReadOnlyEventById(id);
 		if (event == null) {
 			System.out.println("There is no event with this id.");
 			return;
@@ -273,7 +268,7 @@ public class ToDoListApp {
 		System.out.println("Input text");
 		String searchText = getText(sc);
 		
-		List<Event> resList = eventList.getAllEventByTitle(searchText);
+		List<ReadOnlyEvent> resList = eventList.getAllEventByTitle(searchText);
 
 		if (!resList.isEmpty()) {
 			EventListContainer.toPrintList(resList);
@@ -401,8 +396,7 @@ public class ToDoListApp {
 		}
 		
 	}
-	
-	
+		
 	public void loadObjsFromXml() {
 		// Using XmlIO to save an object to file, errors are unexpected (write protected
 		// files)		
@@ -415,8 +409,7 @@ public class ToDoListApp {
 			System.out.println("Load events successfully!");
 		} catch (IOException ex) {
 			Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
+		}		
 	}
 	
 	private void getLoadMaxId() {
